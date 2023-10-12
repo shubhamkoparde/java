@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EmployeeMapper">
+
+ <resultMap id="result" type="employee">
+    <result property="id" column="id"/>
+    <result property="first_name" column="first_name"/>
+    <result property="last_name" column="last_name"/>
+    <result property="department" column="department"/>
+    <result property="email_address" column="email_address"/>
+    <result property="city" column="city"/> 
+    <result property="country" column="country"/>
+    <result property="age" column="age"/>
+  </resultMap>
+  
+   <select id="getAll" resultMap="result">
+        SELECT * FROM employee2
+    </select>
+    
+    <select id="getbyID" parameterType="int" resultMap="result">
+        SELECT * FROM employee2 where id=#{id};
+    </select>
+    
+    <select id="findEmpByDep" parameterType="String" resultMap="result">
+    select* from  employee2 where department =#{department};
+    </select>
+    
+    
+   <delete id="deleteById" parameterType="int">
+    DELETE FROM EMPLOYEE2 WHERE id = #{id}
+  </delete>
+  <insert id="insert" parameterType="employee">
+        INSERT INTO employee2(first_name, last_name, department, email_address, city, country, age) 
+        VALUES (#{first_name}, #{last_name}, #{department}, #{email_address}, #{city}, #{country} ,#{age})
+    </insert>
+    
+    <update id="update" parameterType="employee">
+        UPDATE employee2 SET first_name = #{first_name}, last_name = #{last_name}, 
+        department = #{department}, email_address = #{email_address}, city = #{city}, country = #{country} 
+        WHERE id = #{id}
+    </update>
+    
+</mapper>
